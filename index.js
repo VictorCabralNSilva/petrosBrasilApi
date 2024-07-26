@@ -1,9 +1,9 @@
 const axios = require('axios'); // Importando axios para requisições HTTP
-const fs = require('fs').promises; // Usando fs.promises para operações assíncronas
+const fs = require('fs').promises; // Usando fs para operações assíncronas
 const createCsvWriter = require('csv-writer').createObjectCsvWriter; // Declaração única
 const path = require('path');
 
-// Função para fazer requisição à API
+// Requisição à API
 async function fetchCorretorasApi() {
   try {
     const response = await axios.get('https://brasilapi.com.br/api/cvm/corretoras/v1');
@@ -14,12 +14,12 @@ async function fetchCorretorasApi() {
   }
 }
 
-// Função para filtrar corretoras ativas
+// Filtrando corretoras ativas
 function filtrarCorretorasAtivas(corretoras) {
   return corretoras.filter(corretora => corretora.status !== 'CANCELADA');
 }
 
-// Função para salvar corretoras em um arquivo CSV
+// Salvando corretoras em um arquivo CSV
 async function salvarCorretorasEmCsv(corretoras) {
   const csvWriter = createCsvWriter({
     path: path.join('c:', 'temp', 'corretoras-ativas.csv'),
